@@ -26,7 +26,7 @@ export async function POST(req: Request) {
 
     // 質問を埋め込み化
     const embedding = await client.embeddings.create({
-      model: "text-embedding-3-large",
+      model: "text-embedding-3-small",
       input: question,
     });
 

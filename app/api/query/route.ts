@@ -24,7 +24,7 @@ export async function POST(req: Request) {
       apiKey: process.env.OPENAI_API_KEY!,
     });
 
-    // 質問を埋め込み化
+    // 質問を埋め込み化（高速・1536次元）
     const embedding = await client.embeddings.create({
       model: "text-embedding-3-small",
       input: question,
@@ -32,10 +32,10 @@ export async function POST(req: Request) {
 
     const queryVector = embedding.data[0].embedding;
 
-    // Supabase 類似検索
+    // Supabase 類似検索（高速化のため match_count=3）
     const { data: matches, error } = await supabase.rpc("match_documents", {
       query_embedding: queryVector,
-      match_count: 5,
+      match_count: 3,
     });
 
     if (error) {
@@ -45,14 +45,15 @@ export async function POST(req: Request) {
 
     const context = matches.map((m: any) => m.content).join("\n\n");
 
+    // ChatCompletion（高速モデル）
     const completion = await client.chat.completions.create({
-      model: "gpt-4o-mini",
+      model: "gpt-4o-mini-quick",
       messages: [
         {
           role: "system",
           content: `
 あなたは優しく寄り添う相談AIです。
-…（省略）
+ユーザーの気持ちを受け止め、状況を整理し、次の一歩を優しく提案してください。
         `,
         },
         {

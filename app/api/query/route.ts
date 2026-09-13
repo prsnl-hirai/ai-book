@@ -47,7 +47,7 @@ export async function POST(req: Request) {
 
     // ChatCompletion（高速モデル）
     const completion = await client.chat.completions.create({
-      model: "gpt-4o-mini-quick",
+      model: "gpt-4o-mini",
       messages: [
         {
           role: "system",

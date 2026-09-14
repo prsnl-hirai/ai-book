@@ -7,7 +7,7 @@ export async function POST(req: Request) {
   const book_id = form.get("book_id") as string;
 
   const supabase = createClient(
-    process.env.NEXT_PUBLIC_SUPABASE_URL!,
+    process.env.SUPABASE_URL!,
     process.env.SUPABASE_SERVICE_ROLE_KEY!,
   );
 

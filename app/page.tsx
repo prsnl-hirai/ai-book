@@ -3,8 +3,8 @@ import Link from "next/link";
 
 export default async function BooksPage() {
   const supabase = createClient(
-    process.env.NEXT_PUBLIC_SUPABASE_URL!,
-    process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!,
+    process.env.SUPABASE_URL!,
+    process.env.SUPABASE_ANON_KEY!,
   );
 
   // 書籍一覧取得

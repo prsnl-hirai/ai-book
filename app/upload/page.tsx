@@ -26,6 +26,7 @@ export default function UploadCard() {
 
     const form = new FormData();
     form.append("file", file);
+    form.append("title", fileName); // ★追加
 
     const res = await fetch("/api/upload", {
       method: "POST",
